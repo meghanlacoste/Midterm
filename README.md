@@ -96,17 +96,17 @@ public class Main {
 
 } // end main class
 
-static String equalsIgnoreCase(String another)			compares another string. It doesn't check case.
-String toLowerCase()						returns string in lowercase
-String toLowerCase(Locale l)					returns string in lowercase using specified locale.
-String toUpperCase()						returns string in uppercase.
-String toUpperCase(Locale l)					returns string in uppercase using specified locale.
-String trim()							removes beginning and ending spaces of this string.
-static String valueOf(int value)					converts given type into string. It is overloaded.
+static String equalsIgnoreCase(String another)----------compares another string. It doesn't check case.
+String toLowerCase()------------------------------returns string in lowercase
+String toLowerCase(Locale l)------------------------returns string in lowercase using specified locale.
+String toUpperCase()-----------------------------returns string in uppercase.
+String toUpperCase(Locale l)------------------------returns string in uppercase using specified locale.
+String trim()--------------------------------------removes beginning and ending spaces of this string.
+static String valueOf(int value)--------------------------converts given type into string. It is overloaded.
 
 
 
-char charAt(int index)				            		            returns char value for the particular index
+char charAt(int index)                                      returns char value for the particular index
 int length()							            	            returns string length
 static String format(String format, Object... args)		             returns formatted string
 static String format(Locale l, String format, Object... args)	    returns formatted string with given locale
