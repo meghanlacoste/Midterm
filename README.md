@@ -1,116 +1,97 @@
 # Midterm
 
-package com.company;
+    package com.company;
 
-// -------------------------------------------------------------------------------
-// Bring in the appropriate Java libraries
+// *---------*---------*---------*---------*---------*---------*---------*---------*
+// The import statements indicate which of the Java libraries your program will be
+// using to complete its task.
 //
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
 
-    // Declare Constant Values
-    public static int maxArr = 20;
-    public static int INVALID = -1;
+    private static int MAX_STRINGS = 2;
 
-    // The main method
+    private static void displayProgramInfo(){
+        System.out.println("\n======================================================================================== \n");
+        System.out.println(" This program will ask the user to input two strings, perform a comparison and display");
+        System.out.println(" the result of this comparison to the screen. If you wish to exit the program then please enter");
+        System.out.println(" q, or Q to exit");
+        System.out.println("\n ======================================================================================== \n");
+    }
+
     public static void main(String[] args) {
 
-        int a[][] = new int[maxArr][maxArr];
-        boolean fileDone = false;
-
-        // -------------------------------------------------------------------------------
-        // Initialize the array to a known value
-        // - loops over each row using "i",
-        // - loops over the columns using "j"
-        // -  sets all array values to INVALID
+        // *---------*---------*---------*---------*---------*---------*---------*
+        // Here we are defining the variables that we will need only in the "main" method.
+        // The types we use are some of the primitive data types. Recall the primitive data
+        // types are: byte, short, int, long, float, double, boolean, and char. It is considered
+        // good programming practice to assign a value, using the "=", when the variable is declared.
         //
 
-        for(int i=0; i < maxArr; i++) {
-            for(int j = 0; j < maxArr; j++){
-                a[i][j] = INVALID;
-            }
-        }
+        String uString1 = null;
+        String uString2 =  null;
+        int uCount;
 
-        System.out.println("------------------------------------------------");
+        // *---------*---------*---------*---------*---------*---------*---------*
+        // Here we are using another class defined in Java, the Scanner class, to
+        // allow us to read the input entered by the person running/using our program.
+        // Note: We use the keyword "new" infront of the class name "Scanner" to create
+        // an "object" from a class. Additionally, we tell our program to specifically
+        // create an object that will read information from "System.in". In this case
+        // we have called our Scanner object "s"
+        //
 
-        try {
-            // --------------------------------
-            // create file, and scanner objects
-            // - file object is called tempfilenums.txt and is in your project directory
-            //   that is the same folder as the iml file
-            //
-            File f = new File("tempfilenums.txt");
-            Scanner s = new Scanner(f);
+        Scanner s = new Scanner(System.in);
 
-            // ---------------------------------------------
-            // Reads in values from the file into the array
-            // - can only hold maxArr * maxArr elements
-            // - reads file data into array integer by integer filling array sequentially
-            //
+        // *---------*---------*---------*---------*---------*---------*---------*
+        // Here we are "calling" (using the method we created above) to display
+        // information about the our program. This is one way we can inform the user
+        // what our program will do, and also what is going to be expected from them
+        // while they are using our code.
+        //
 
-            for(int i=0; i < maxArr; i++) {
+        displayProgramInfo();
 
-                for(int j = 0; j < maxArr; j++){
 
-                    // ---------------------------------------------
-                    // The scanner checks if there is another integer and prints it
-                    // if there is
-                    //
 
-                    if (s.hasNext()) {
-                        a[i][j] = s.nextInt();
-                        System.out.print(" - " + a[i][j]);
-                    }
-                    else {
-                        // ---------------------------------------------
-                        // The scanner detected no other integers
-                        // - sets boolean "fileDone" to true
-                        // - closes the scanner
-                        // - breaks out of the for loop
-                        //
+        while ( !(s.hasNext("q") || s.hasNext("Q")) ){
 
-                        fileDone = true;
-                        s.close();
+
+            uCount = 1;
+            while ( !(s.hasNext("q") || s.hasNext("Q")) || (uCount < MAX_STRINGS) ){
+                System.out.println("Enter string # " + uCount + ", or q, or Q to exit");
+
+                switch (uCount){
+                    case 1: {
+                        uCount++;
+                        uString1 = s.next();
                         break;
                     }
-                }
+                    case 2: {
+                        uCount++;
+                        uString2 = s.next();
+                        break;
+                    }
+                    default: {
+                        System.out.println("ERROR: Unexpected uCount value: " + uCount);
+                        System.out.println("       uString1: " + uString1);
+                        System.out.println("       uString2: " + uString2);
+                        break;
+                    }
+                } // end switch (uCount)
 
-                // ---------------------------------------------
-                // The file has been completely read into the array, so the user is notified.
-                //
+            } // end while
 
-                System.out.println();
-                if (fileDone) {
-                    System.out.println("\n\tFile data has been read into array");
-                    break;
-                }
-            }
+            System.out.println("Enter q, or Q to exit");
 
-            // ---------------------------------------------
-            // If there is not enough space in the array so make sure the user is notified that the file contains
-            // more data than the array can hold.
-            //
+        } // end while
 
-            if (!fileDone) {
-                System.out.println("\n\tCAUTION: file has additional data, consider making array larger.");
-            }
+        System.out.println("Thank you good bye.");
 
-            // ---------------------------------------------
-            // If the file cannot be found then an exception (error) is generated (thrown) that we have to
-            // deal with (catch).
-            // - we print "e" the exception, and
-            // - show the user where it was using the "exceptions" stack trace information
-            //
 
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-            e.printStackTrace();
-        }
+    } // end main method
 
-        System.out.println("------------------------------------------------");
-
-    }
-}
+} // end main class
