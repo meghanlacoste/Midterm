@@ -95,3 +95,40 @@ public class Main {
     } // end main method
 
 } // end main class
+
+static String equalsIgnoreCase(String another)			compares another string. It doesn't check case.
+String toLowerCase()						returns string in lowercase
+String toLowerCase(Locale l)					returns string in lowercase using specified locale.
+String toUpperCase()						returns string in uppercase.
+String toUpperCase(Locale l)					returns string in uppercase using specified locale.
+String trim()							removes beginning and ending spaces of this string.
+static String valueOf(int value)					converts given type into string. It is overloaded.
+
+
+
+char charAt(int index)				            		            returns char value for the particular index
+int length()							            	            returns string length
+static String format(String format, Object... args)		             returns formatted string
+static String format(Locale l, String format, Object... args)	    returns formatted string with given locale
+String substring(int beginIndex)					                returns substring for given begin index
+String substring(int beginIndex, int endIndex)			            returns substring for given begin index and end index
+boolean contains(CharSequence s)				                        returns true or false after matching the sequence of char value
+static String join(CharSequence delimiter, CharSequence... elements)			returns a joined string
+static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)	returns a joined string
+boolean equals(Object another)				                        	checks the equality of string with object
+boolean isEmpty()							checks if string is empty
+String concat(String str)						concatenates specified string
+String replace(char old, char new)				replaces all occurrences of specified char value
+String replace(CharSequence old, CharSequence new)		replaces all occurrences of specified CharSequence
+
+String[] split(String regex)					returns splitted string matching regex
+String[] split(String regex, int limit)				returns splitted string matching regex and limit
+String intern()							returns interned string
+int indexOf(int ch)							returns specified char value index
+int indexOf(int ch, int fromIndex)				returns specified char value index starting with given index
+int indexOf(String substring)					returns specified substring index
+int indexOf(String substring, int fromIndex)			returns specified substring index starting with given index
+
+
+
+
