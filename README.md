@@ -1,134 +1,84 @@
-# Midterm
+When you have grouped a bunch of similar items together into an array, one of the things you can do easily is rearrange items. The following statements switch the values of two elements in an integer array called numbers:
 
-    package com.company;
+int temp = numbers[5];
+numbers[5] = numbers[6];
+numbers[6] = temp;
+These statements result in numbers[5] and numbers[6] trading values with each other. The integer variable called temp is used as a temporary storage place for one of the values being swapped.
 
-// *---------*---------*---------*---------*---------*---------*---------*---------*
-// The import statements indicate which of the Java libraries your program will be
-// using to complete its task.
-//
+The most common reason to rearrange elements of an array is to sort them into a specific order. Sorting is the process of arranging a list of related items into a set order. An example would be sorting a list of numbers from lowest to highest.
 
-import java.io.*;
-import java.util.*;
+Santa Claus, the world's biggest user of lists, might want to use sorting to rearrange the order of gift recipients according to last name. This order could determine who receives gifts first on Christmas Eve, with people such as Willie Aames and Paul Azinger raking in their Yuletide plunder much earlier than alphabetical unfortunates such as Dweezil Zappa and Jim Zorn. (As someone whose last name begins with "C," I'm not necessarily opposed to this practice).
 
-public class Main {
+Sorting an array is easy in Java because the Arrays class does all of the work for you. Arrays, which is part of the java.util group of classes, can rearrange arrays of all variable types as well as strings.
 
-    private static int MAX_STRINGS = 2;
+To use the Arrays class in a program to sort an array, undertake the following steps:
 
-    private static void displayProgramInfo(){
-        System.out.println("\n======================================================================================== \n");
-        System.out.println(" This program will ask the user to input two strings, perform a comparison and display");
-        System.out.println(" the result of this comparison to the screen. If you wish to exit the program then please enter");
-        System.out.println(" q, or Q to exit");
-        System.out.println("\n ======================================================================================== \n");
-    }
+Use the import java.util.*; statement to make all of the java.util classes available in the program.
 
-    public static void main(String[] args) {
+Create the array.
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are defining the variables that we will need only in the "main" method.
-        // The types we use are some of the primitive data types. Recall the primitive data
-        // types are: byte, short, int, long, float, double, boolean, and char. It is considered
-        // good programming practice to assign a value, using the "=", when the variable is declared.
-        //
+Use the sort() method of the Arrays class to rearrange an array.
 
-        String uString1 = null;
-        String uString2 =  null;
-        int uCount;
+An array of variables that is sorted by the Arrays class will be rearranged into ascending numerical order. This will be easy to see with an array of numbers such as float values. Characters and strings will be arranged according to the alphabet, with the first letters such as A, B, and C coming first, and the last letters such as X, Y, and Z coming last.
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are using another class defined in Java, the Scanner class, to
-        // allow us to read the input entered by the person running/using our program.
-        // Note: We use the keyword "new" infront of the class name "Scanner" to create
-        // an "object" from a class. Additionally, we tell our program to specifically
-        // create an object that will read information from "System.in". In this case
-        // we have called our Scanner object "s"
-        //
+Listing 9.2 contains a short program that sorts five names. Enter this with your word processor and save the file as Name.java. Make sure not to overlook Line 1. If you do, the program will fail to compile because the Arrays class in Line 11 can't be found.
 
-        Scanner s = new Scanner(System.in);
+Listing 9.2 The Full Source Code of Name.java
+ 1: import java.util.*;
+ 2:
+ 3: class Name {
+ 4:   public static void main(String[] arguments) {
+ 5:     String names[] = { "Peter", "Patricia", "Hunter", "Sarah",
+ 6:       "Gabe", "Gina", "Rob", "John", "Zoey", "Tammy", "Robert",
+ 7:       "Sean", "Paschal", "Kathy", "Neleh", "Vecepia" };
+ 8:     System.out.println("The original order:");
+ 9:     for (int i = 0; i < names.length; i++)
+10:       System.out.println(i + ": " + names[i]);
+11:     Arrays.sort(names);
+12:     System.out.println("The new order:");
+13:     for (int i = 0; i < names.length; i++)
+14:       System.out.println(i + ": " + names[i]);
+15:   }
+16: }
+After you have created this source file, compile it. Using the SDK, you can compile it at a command line by entering this command:
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are "calling" (using the method we created above) to display
-        // information about the our program. This is one way we can inform the user
-        // what our program will do, and also what is going to be expected from them
-        // while they are using our code.
-        //
+javac Name.java
+This Java program displays a list of five names in their original order, sorts the names, and then redisplays the list.
 
-        displayProgramInfo();
+The following output is produced:
 
-
-
-        while ( !(s.hasNext("q") || s.hasNext("Q")) ){
-
-
-            uCount = 1;
-            while ( !(s.hasNext("q") || s.hasNext("Q")) || (uCount < MAX_STRINGS) ){
-                System.out.println("Enter string # " + uCount + ", or q, or Q to exit");
-
-                switch (uCount){
-                    case 1: {
-                        uCount++;
-                        uString1 = s.next();
-                        break;
-                    }
-                    case 2: {
-                        uCount++;
-                        uString2 = s.next();
-                        break;
-                    }
-                    default: {
-                        System.out.println("ERROR: Unexpected uCount value: " + uCount);
-                        System.out.println("       uString1: " + uString1);
-                        System.out.println("       uString2: " + uString2);
-                        break;
-                    }
-                } // end switch (uCount)
-
-            } // end while
-
-            System.out.println("Enter q, or Q to exit");
-
-        } // end while
-
-        System.out.println("Thank you good bye.");
-
-
-    } // end main method
-
-} // end main class
-
-static String equalsIgnoreCase(String another)----------compares another string. It doesn't check case.
-String toLowerCase()------------------------------returns string in lowercase
-String toLowerCase(Locale l)------------------------returns string in lowercase using specified locale.
-String toUpperCase()-----------------------------returns string in uppercase.
-String toUpperCase(Locale l)------------------------returns string in uppercase using specified locale.
-String trim()--------------------------------------removes beginning and ending spaces of this string.
-static String valueOf(int value)--------------------------converts given type into string. It is overloaded.
-
-
-
-char charAt(int index)                                      returns char value for the particular index
-int length()							            	            returns string length
-static String format(String format, Object... args)		             returns formatted string
-static String format(Locale l, String format, Object... args)	    returns formatted string with given locale
-String substring(int beginIndex)					                returns substring for given begin index
-String substring(int beginIndex, int endIndex)			            returns substring for given begin index and end index
-boolean contains(CharSequence s)				                        returns true or false after matching the sequence of char value
-static String join(CharSequence delimiter, CharSequence... elements)			returns a joined string
-static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)	returns a joined string
-boolean equals(Object another)				                        	checks the equality of string with object
-boolean isEmpty()							checks if string is empty
-String concat(String str)						concatenates specified string
-String replace(char old, char new)				replaces all occurrences of specified char value
-String replace(CharSequence old, CharSequence new)		replaces all occurrences of specified CharSequence
-
-String[] split(String regex)					returns splitted string matching regex
-String[] split(String regex, int limit)				returns splitted string matching regex and limit
-String intern()							returns interned string
-int indexOf(int ch)							returns specified char value index
-int indexOf(int ch, int fromIndex)				returns specified char value index starting with given index
-int indexOf(String substring)					returns specified substring index
-int indexOf(String substring, int fromIndex)			returns specified substring index starting with given index
-
-
-
-
+The original order:
+0: Peter
+1: Patricia
+2: Hunter
+3: Sarah
+4: Gabe
+5: Gina
+6: Rob
+7: John
+8: Zoey
+9: Tammy
+10: Robert
+11: Sean
+12: Paschal
+13: Kathy
+14: Neleh
+15: Vecepia
+The new order:
+0: Gabe
+1: Gina
+2: Hunter
+3: John
+4: Kathy
+5: Neleh
+6: Paschal
+7: Patricia
+8: Peter
+9: Rob
+10: Robert
+11: Sarah
+12: Sean
+13: Tammy
+14: Vecepia
+15: Zoey
+When you're working with strings and the basic types of variables such as integers and floating-point numbers, you can only sort them by ascending order using the Arrays class. You can write code to do your own sorts by hand if you desire a different arrangement of elements during a sort, or if you want better efficiency than the Arrays class provides.
