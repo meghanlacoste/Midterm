@@ -151,7 +151,8 @@ class Test
 \*
 
 ----------------------------------------------------------------------------------------------------------------------------
-// sorts the array from least to greatest by looping over the array (starting with first number at index i) and swapping for a number that is the smaller than it. The next number (i+1 =j) becomes the new starting position.   It repeats so that the entire array is sorted. 
+// sorts the array from least to greatest by looping over the array (starting with first number at index i) and swapping for a number that is the smaller than it. The next number (i+1 =j) becomes the new starting position.   It repeats so that the entire array is sorted. First for loop finds the i position while second 4 loop finds the smallest number left unsorted. 
+//
 public static void selectionSort (int arr[]}
 {
 for (int i=0; i< arr.length -1; i ++){
