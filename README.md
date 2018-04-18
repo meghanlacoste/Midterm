@@ -1,85 +1,100 @@
 # Midterm
 
+
+import java.util.*;
+import java.io.*;
+
 public class Main {
 
-    private static int MAXLOOP1 = 20;
-    private static int MAXLOOP2 = 5;
-    private static int MAXLOOP3 = 10;
-    private static int MAXLOOP4 = 7;
-    private static int MAXLOOP5 = 97;
-
-    private static int MAXPERLINE1 = 20;
-    private static int MAXPERLINE2 = 50;
-    private static int MODULUS = 3;
+    // create a constant value for use in for loop below
+    private static int myMAX = 100;
 
     public static void main(String[] args) {
 
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
 
-        int product = 0;
-        int itemsOnLine =  0;
+        // Declare a variable of String type for user input
+        String userFileName;
 
-        for (int i = 1; i <= MAXLOOP1; i++){
+        int someInteger;
 
-            for (int j = 1; j <= MAXLOOP2; j++){
-
-                itemsOnLine++;
-                product = i * j;
-
-                System.out.print( product + " ");
-
-                if (itemsOnLine == MAXPERLINE1){
-                    System.out.println();
-                    itemsOnLine = 0;
-                } // end if (itemsOnLine == MAXPERLINE)
-
-            } // end for (int j = 1; j <= MAXLOOP2; j++)
-        } // end for (int i = 1; i <= MAXLOOP1; i++)
+        // *---------*---------*---------*---------*---------*---------*---------*
+        // Here we are using another class defined in Java, the Scanner class, to
+        // allow us to read the input entered by the person running/using our program.
+        // Note: We use the keyword "new" infront of the class name "Scanner" to create
+        // an "object" from a class. Additionally, we tell our program to specifically
+        // create an object that will read information from "System.in". In this case
+        // we have called our Scanner object "s"
+        //
 
 
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
+        System.out.println("");
+        System.out.println("Please type in the file name\n");
 
-        product = 0;
-        itemsOnLine =  0;
+        // create a variable s of type scanner to process input from "System.in"
+        Scanner scanSystemIn = new Scanner(System.in);
 
-        int idx1 = 1;
-        int idx2 = 1;
+        // Use the Scanner "s" to get the "next" input from "System.in"
+        userFileName = scanSystemIn.next();
 
-        for (int i = 1; i <= MAXLOOP3; i++){
+        // Display the user input now stored in "userInput"
+        System.out.println("\nThe user input: " + userFileName);
 
-            idx1 = 1;
 
-            while (idx1 < MAXLOOP4 ){
+        // ---------------------------------------------
+        // This is where we "try" to process the file
+        //
 
-                idx2 = 1;
+        try {
+            // --------------------------------
+            // create file, and scanner objects
+            // - file object is called tempfilenums.txt and is in your project directory
+            //   that is the same folder as the iml file
+            //
 
-                do {
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
 
-                    product = i * idx1 * idx2;
+            // ---------------------------------------------
+            // Reads in values from the file in a for loop
+            //
 
-                    if (product % MODULUS == 0){
+            for(int i=0; i < myMAX; i++) {
 
-                        itemsOnLine++;
+                // ---------------------------------------------
+                // The scanner checks if there is another integer and prints it
+                // if there is
+                //
 
-                        System.out.print( product + " ");
+                if (scanUserFile.hasNext()) {
+                    someInteger = scanUserFile.nextInt();
+                    System.out.print(" - " + someInteger);
+                }
+                else {
+                    // ---------------------------------------------
+                    // The scanner detected no other integers
+                    // - closes the scanner for the file
+                    // - breaks out of the for loop
+                    //
+                    System.out.print("\n\nDataFileFILE has been completely READ");
+                    scanUserFile.close();
 
-                        if (itemsOnLine == MAXPERLINE2){
+                    // A break statement allows us to exit the loop before we have reach the end
+                    break;
+                    }
+                }
 
-                            System.out.println();
-                            itemsOnLine = 0;
+                System.out.println();
 
-                        } // end if (itemsOnLine == MAXPERLINE)
-                    } // end if (product % MODULUS == 0)
+            // ---------------------------------------------
+            // If the file cannot be found then an exception (error) is generated (thrown) that we have to
+            // deal with (catch).
+            // - we print "e" the exception, and
+            // - show the user where it was using the "exceptions" stack trace information
+            //
 
-                    idx2++;
-                } while (idx2 <= MAXLOOP5);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
 
-                idx1++;
-
-            } // end while (idx1 < MAXLOOP4 )
-        } // end (int i = 1; i <= MAXLOOP3; i++)
-
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
-
-    } // end main method
-} // end main class
+        System.out.println("------------------------------------------------");
