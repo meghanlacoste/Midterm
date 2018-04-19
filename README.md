@@ -166,3 +166,16 @@ index = j;
 int smallerNumber = arr[index];
 arr[index] = arr[i];
 arr[i] = smallerNumber
+
+public static void main(String[] args) {
+int [] arr = {11, 2, 8, 9, 3, 7, 4};
+System.out.println (" Before Sort"); 
+for (int i = 0; i < arr.length; i++) {
+System.out,print (arr[i] + " ") 
+}
+selectionSort(arr);
+Ststem.out,println("\nAfter Sort");
+for (int j = 0; j < arr.length; j++) {
+System.out,print (arr[j] + " ");
+}
+}
