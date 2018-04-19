@@ -129,3 +129,17 @@ while(it.hasNext()) {
 }
     }
 }
+// ANOTHER SOLUTION
+// uniqueArray = a.filter(function(item, pos) {
+    return a.indexOf(item) == pos;
+})
+Basically, we iterate over the array and, for each element, check if the first position of this element in the array is equal to the current position. Obviously, these two positions are different for duplicate elements.
+
+Using the 3rd ("this array") parameter of the filter callback we can avoid a closure of the array variable:
+
+uniqueArray = a.filter(function(item, pos, self) {
+    return self.indexOf(item) == pos;
+})
+Although concise, this algorithm is not particularly efficient for large arrays (quadratic time).
+
+
