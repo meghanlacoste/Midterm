@@ -11,6 +11,7 @@ System.out.println(a-b);//5
 System.out.println(a*b);//50  
 System.out.println(a/b);//2  
 System.out.println(a%b);//0 
+% MEANS REMAINDEr
 
 The logical && operator doesn't check second condition if first condition is false. It checks second condition only if first one is true.
 
