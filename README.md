@@ -112,5 +112,20 @@ public class Main {
 
         System.out.println("------------------------------------------------");
 
+/// ANOTHER STRATAGy
+//you can take the help of Set collection
+
+int end = arr.length;
+Set<Integer> set = new HashSet<Integer>();
+
+for(int i = 0; i < end; i++){
+  set.add(arr[i]);
+}
+//now if you will iterate through this set, it will contain only unique values. Iterating code is like this :
+
+Iterator it = set.iterator();
+while(it.hasNext()) {
+  System.out.println(it.next());
+}
     }
 }
