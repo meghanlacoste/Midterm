@@ -1,134 +1,271 @@
 # Midterm
 
-    package com.company;
+  package com.company;
 
-// *---------*---------*---------*---------*---------*---------*---------*---------*
-// The import statements indicate which of the Java libraries your program will be
-// using to complete its task.
-//
-
+import java.util.Scanner;
+import java.util.Arrays;
 import java.io.*;
 import java.util.*;
-
 public class Main {
-
-    private static int MAX_STRINGS = 2;
-
-    private static void displayProgramInfo(){
-        System.out.println("\n======================================================================================== \n");
-        System.out.println(" This program will ask the user to input two strings, perform a comparison and display");
-        System.out.println(" the result of this comparison to the screen. If you wish to exit the program then please enter");
-        System.out.println(" q, or Q to exit");
-        System.out.println("\n ======================================================================================== \n");
-    }
 
     public static void main(String[] args) {
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are defining the variables that we will need only in the "main" method.
-        // The types we use are some of the primitive data types. Recall the primitive data
-        // types are: byte, short, int, long, float, double, boolean, and char. It is considered
-        // good programming practice to assign a value, using the "=", when the variable is declared.
+        int[] iNoFile = {2, 3, 5, 7, 11, 13, 17, 19, 2, 3, 23, 29, 11, 13, 31, 37, 23, 29, 41, 43};
+
+        String [] sNoFile = {"Adverse", "means",  "harmful",  "or", "unfavorable", "Adverse",  "market", "conditions", "caused", "the", "IPO", "to",
+                "be", "poorly", "subscribed", "Averse", "refers", "to", "feelings",  "of", "dislike",  "or", "opposition",  "I", "was", "averse", "to", "paying", "18", "dollars", "a", "share",
+                "for",  "a", "company", "that", "generates", "no", "revenue"};
+
+        // =============================================================================================================
+        // Task 1: Create an array of integers called myInt that can hold a maximum of 25 items
+        //         If you are unable to write the code to read the file then use the "iNoFile" array
+        //         given above. (2 marks)
+
+
+        String userFileName;
+
+       int myInt[] = new int[25];
+
+
+        // Task 2: Open and read the data from i.txt into the myInt array (4 marks)
+
+
+        Scanner scanSystemIn = new Scanner(System.in);
+
+        // Use the Scanner "s" to get the "next" input from "System.in"
+        System.out.println("Enter 'i.txt'");
+        userFileName = scanSystemIn.next();
+
+
+        // ---------------------------------------------
+        // "try" to process the file
         //
+        try {
 
-        String uString1 = null;
-        String uString2 =  null;
-        int uCount;
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are using another class defined in Java, the Scanner class, to
-        // allow us to read the input entered by the person running/using our program.
-        // Note: We use the keyword "new" infront of the class name "Scanner" to create
-        // an "object" from a class. Additionally, we tell our program to specifically
-        // create an object that will read information from "System.in". In this case
-        // we have called our Scanner object "s"
+            // ---------------------------------------------
+            // Reads in values from the file in a for loop
+            //
+
+            for(int i=0; i < 24; i++) {
+
+
+            // Task 3: Print the contents of the array on 1 line separated by spaces using a for loop. (3 marks)
+
+                if (scanUserFile.hasNextInt()) {
+                    myInt[i] = scanUserFile.nextInt();
+                    System.out.print(" " + myInt[i]);
+
+
+                }
+                else {
+                    // ---------------------------------------------
+                    // The scanner detected no other integers
+
+                    System.out.print("\n\nDataFileFILE has been completely READ");
+                    scanUserFile.close();
+
+                    break;
+                }
+            }
+
+            System.out.println();
+
+            // if the file could not be found use the catch "e" exception and display message
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+        System.out.println("------------------------------------------------");
+
+
+
+        // Task 4: Sort the contents of the array. (2 marks)
+
+        Arrays.sort(myInt);
+
+        // Task 5: Leave 2 blank lines and then Print the contents of the sorted array on 1 line using a for loop. (3 marks)
+
+        System.out.print("\n\n");
+
+        System.out.println("Sorted Array:");
+        for (int i = 5; i < 24; i++) {
+            System.out.print(" " + myInt[i]);
+            }
+
+
+
+
+        // Task 6: Use a for loop to add together the first 5 values in the myInt array and display the result. (3 marks)
+
+        int sum = 0;
+
+        for (int i = 5; i < 10; i++){
+
+            sum+= myInt[i];
+
+
+
+        }
+        System.out.print("\n \nSum of first 5 digits: " + sum);
+
+
+
+
+
+        // Task 7: Find every value that is duplicated, and print this to the screen. (4 marks)
+
+        System.out.print("\n\n duplicates: \n");
+        for (int i = 5; i < 24; i++) {
+            int j = 1 + i;
+
+
+            if (myInt[i] == myInt[j]){
+                System.out.print( " " + myInt[j]);
+
+            }
+        }
+
+
+
+
+        // =============================================================================================================
+        // Task 8: Create an array of Strings called myStrings that can hold a maximum of 50 items
+        //         If you are unable to write the code to read the file then use the "sNoFile" array
+        //         given above. (2 marks)
+
+
+        String myStrings[] = new String[50];
+
+
+        // Task 10: Open and read the data from s.txt into the myStrings array (4 marks)
+
+        System.out.print("\n\n-------------------------------------------------------------------------------\n");
+        System.out.println("Enter 's.txt'");
+        userFileName = scanSystemIn.next();
+
+
+        // ---------------------------------------------
+        // "try" to process the file
         //
+        try {
 
-        Scanner s = new Scanner(System.in);
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are "calling" (using the method we created above) to display
-        // information about the our program. This is one way we can inform the user
-        // what our program will do, and also what is going to be expected from them
-        // while they are using our code.
-        //
+            // ---------------------------------------------
+            // Reads in values from the file in a for loop
+            //
 
-        displayProgramInfo();
+            // Task 11: Print the contents of the array using a while loop. (3 marks)
 
-
-
-        while ( !(s.hasNext("q") || s.hasNext("Q")) ){
+            for (int i=0; i < 49; i++) {
 
 
-            uCount = 1;
-            while ( !(s.hasNext("q") || s.hasNext("Q")) || (uCount < MAX_STRINGS) ){
-                System.out.println("Enter string # " + uCount + ", or q, or Q to exit");
+                // Task 3: Print the contents of the array on 1 line separated by spaces using a for loop. (3 marks)
 
-                switch (uCount){
-                    case 1: {
-                        uCount++;
-                        uString1 = s.next();
-                        break;
-                    }
-                    case 2: {
-                        uCount++;
-                        uString2 = s.next();
-                        break;
-                    }
-                    default: {
-                        System.out.println("ERROR: Unexpected uCount value: " + uCount);
-                        System.out.println("       uString1: " + uString1);
-                        System.out.println("       uString2: " + uString2);
-                        break;
-                    }
-                } // end switch (uCount)
-
-            } // end while
-
-            System.out.println("Enter q, or Q to exit");
-
-        } // end while
-
-        System.out.println("Thank you good bye.");
+                while (scanUserFile.hasNext()) {
+                    myStrings[i] = scanUserFile.next();
+                    System.out.print(" " + myStrings[i]);
 
 
-    } // end main method
+                }
 
-} // end main class
+                if (!scanUserFile.hasNext()) {
+                    // ---------------------------------------------
+                    // The scanner detected no other integers
 
-static String equalsIgnoreCase(String another)----------compares another string. It doesn't check case.
-String toLowerCase()------------------------------returns string in lowercase
-String toLowerCase(Locale l)------------------------returns string in lowercase using specified locale.
-String toUpperCase()-----------------------------returns string in uppercase.
-String toUpperCase(Locale l)------------------------returns string in uppercase using specified locale.
-String trim()--------------------------------------removes beginning and ending spaces of this string.
-static String valueOf(int value)--------------------------converts given type into string. It is overloaded.
+                    System.out.print("\n\nDataFileFILE has been completely READ");
+                    scanUserFile.close();
 
+                    break;
+                }
+            }
 
+            System.out.println();
 
-char charAt(int index)                                      returns char value for the particular index
-int length()							            	            returns string length
-static String format(String format, Object... args)		             returns formatted string
-static String format(Locale l, String format, Object... args)	    returns formatted string with given locale
-String substring(int beginIndex)					                returns substring for given begin index
-String substring(int beginIndex, int endIndex)			            returns substring for given begin index and end index
-boolean contains(CharSequence s)				                        returns true or false after matching the sequence of char value
-static String join(CharSequence delimiter, CharSequence... elements)			returns a joined string
-static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)	returns a joined string
-boolean equals(Object another)				                        	checks the equality of string with object
-boolean isEmpty()							checks if string is empty
-String concat(String str)						concatenates specified string
-String replace(char old, char new)				replaces all occurrences of specified char value
-String replace(CharSequence old, CharSequence new)		replaces all occurrences of specified CharSequence
+            // if the file could not be found use the catch "e" exception and display message
 
-String[] split(String regex)					returns splitted string matching regex
-String[] split(String regex, int limit)				returns splitted string matching regex and limit
-String intern()							returns interned string
-int indexOf(int ch)							returns specified char value index
-int indexOf(int ch, int fromIndex)				returns specified char value index starting with given index
-int indexOf(String substring)					returns specified substring index
-int indexOf(String substring, int fromIndex)			returns specified substring index starting with given index
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+        System.out.println("------------------------------------------------");
 
 
 
 
+
+        System.out.println("Reverse Sorted Array");
+
+
+        // Task 12: Sort the contents of the array. (2 marks)
+
+        Arrays.sort(sNoFile);
+
+
+        // Task 13: Print the contents of the sorted array in reverse order using a while loop. (4 marks)
+
+
+        for(int i = 0; i < sNoFile.length; i++) {
+
+                    System.out.print(" " + sNoFile[i]); }
+
+
+
+      /*
+
+       import java.util.Arrays;
+
+        String [] stringArray = {"ab", "aB", "c", "0", "2", "1Ad", "a10"};
+        orderedGuests(stringArray);
+    }
+
+    public static void orderedGuests(String[] hotel)
+    {
+        Arrays.sort(hotel);
+        System.out.println(Arrays.toString(hotel));
+    }
+}
+
+
+
+
+
+
+       String reverse = " ";
+           for(int i = myStrings.length - 1; i >= 0; i--){
+
+            reverse += myStrings[i];
+        }
+
+        System.out.println("Reversed string is:");
+        System.out.println(reverse);
+        */
+
+
+
+        // Task 14: Using a while loop print out all strings that are duplicated (ignore capitalization during the comparison) (2 marks)
+
+        //String myStrings[i] equalsIgnoreCase (String myStrings[j]))
+
+        //static myStrings[i] equalsIgnoreCase(myStrings[i]);
+
+       // String equalsIgnoreCase(String another)
+
+
+
+
+
+
+
+
+
+
+    }
+}
