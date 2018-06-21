@@ -27,3 +27,10 @@ public class Test {
 40
 50
 
+A continue statement without a label will re-execute from the condition the innermost while or do loop, and from the update expression of the innermost for loop. It is often used to early-terminate a loop's processing and thereby avoid deeply-nested if statements. In the following example continue will get the next line, without processing the following statement in the loop.
+
+while (getNext(line)) {
+  if (line.isEmpty() || line.isComment())
+    continue;
+  // More code here
+}
