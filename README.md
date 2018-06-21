@@ -4,3 +4,26 @@ In a for loop, the continue keyword causes control to immediately jump to the up
 
 In a while loop or do/while loop, control immediately jumps to the Boolean expression.
 
+
+public class Test {
+
+   public static void main(String args[]) {
+      int [] numbers = {10, 20, 30, 40, 50};
+
+      for(int x : numbers ) {
+         if( x == 30 ) {
+            continue;
+         }
+         System.out.print( x );
+         System.out.print("\n");
+      }
+   }
+}
+
+//This will produce the following result −
+
+10
+20
+40
+50
+
