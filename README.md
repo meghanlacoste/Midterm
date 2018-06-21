@@ -1,41 +1,42 @@
-# Midterm
-
-    package com.company;
+package com.company;
 
 // *---------*---------*---------*---------*---------*---------*---------*---------*
 // The import statements indicate which of the Java libraries your program will be
 // using to complete its task.
 //
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
 
-    private static int MAX_STRINGS = 2;
+    // create a constant value for use in for loop below
+    private static int myMAX = 100;
 
-    private static void displayProgramInfo(){
-        System.out.println("\n======================================================================================== \n");
-        System.out.println(" This program will ask the user to input two strings, perform a comparison and display");
-        System.out.println(" the result of this comparison to the screen. If you wish to exit the program then please enter");
-        System.out.println(" q, or Q to exit");
-        System.out.println("\n ======================================================================================== \n");
-    }
+    // "line.separator" is a system property that is a platform independent and it is one way
+    // of getting a newline from your environment.
+    private static String NEWLINE = System.getProperty("line.separator");
 
     public static void main(String[] args) {
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are defining the variables that we will need only in the "main" method.
-        // The types we use are some of the primitive data types. Recall the primitive data
-        // types are: byte, short, int, long, float, double, boolean, and char. It is considered
-        // good programming practice to assign a value, using the "=", when the variable is declared.
+        // --------------------------------
+        // create a variable userFileName of type scanner to process input from "System.in"
         //
 
-        String uString1 = null;
-        String uString2 =  null;
-        int uCount;
+        String userInputFileName;
+        String userOutputFileName;
+        String outString;
 
-        // *---------*---------*---------*---------*---------*---------*---------*
+        int dataArray[] = new int[myMAX];
+        int itemCount = 0;
+        double average = 0;
+        double total = 0;
+
+        System.out.println("");
+        System.out.println("Please type in the INPUT file name\n");
+
+
+        // --------------------------------
         // Here we are using another class defined in Java, the Scanner class, to
         // allow us to read the input entered by the person running/using our program.
         // Note: We use the keyword "new" infront of the class name "Scanner" to create
@@ -44,91 +45,154 @@ public class Main {
         // we have called our Scanner object "s"
         //
 
-        Scanner s = new Scanner(System.in);
+        Scanner scanSystemIn = new Scanner(System.in, "UTF-8");
 
-        // *---------*---------*---------*---------*---------*---------*---------*
-        // Here we are "calling" (using the method we created above) to display
-        // information about the our program. This is one way we can inform the user
-        // what our program will do, and also what is going to be expected from them
-        // while they are using our code.
+        // --------------------------------
+        // Use the Scanner "userFileName" to get the "next" input from "System.in"
         //
 
-        displayProgramInfo();
+        userInputFileName = scanSystemIn.next();
 
+        // --------------------------------
+        // Display the user input now stored in "userInput"
+        //
 
+        System.out.println("\nThe user input: " + userInputFileName);
 
-        while ( !(s.hasNext("q") || s.hasNext("Q")) ){
+        // ---------------------------------------------
+        // This is where we "try" to process the file
+        //
 
+        try {
 
-            uCount = 1;
-            while ( !(s.hasNext("q") || s.hasNext("Q")) || (uCount < MAX_STRINGS) ){
-                System.out.println("Enter string # " + uCount + ", or q, or Q to exit");
+            // --------------------------------
+            // create file, and scanner objects
+            // - file object is called tempfilenums.txt and is in your project directory
+            //   that is the same folder as the iml file
+            //
 
-                switch (uCount){
-                    case 1: {
-                        uCount++;
-                        uString1 = s.next();
-                        break;
-                    }
-                    case 2: {
-                        uCount++;
-                        uString2 = s.next();
-                        break;
-                    }
-                    default: {
-                        System.out.println("ERROR: Unexpected uCount value: " + uCount);
-                        System.out.println("       uString1: " + uString1);
-                        System.out.println("       uString2: " + uString2);
-                        break;
-                    }
-                } // end switch (uCount)
+            File userFile = new File(userInputFileName);
+            Scanner scanUserFile = new Scanner(userFile, "UTF-8");
 
-            } // end while
+            // ---------------------------------------------
+            // Reads in values from the file in a for loop
+            //
 
-            System.out.println("Enter q, or Q to exit");
+            for(int i=0; i < myMAX; i++) {
 
-        } // end while
+                // ---------------------------------------------
+                // The scanner checks if there is another integer and prints it
+                // if there is
+                //
 
-        System.out.println("Thank you good bye.");
+                if (scanUserFile.hasNext()) {
 
+                    dataArray[itemCount] = scanUserFile.nextInt();
+                    total = total + dataArray[itemCount];
 
-    } // end main method
+                    System.out.print(" - " + dataArray[itemCount]);
 
-} // end main class
+                    itemCount++;
+                }
+                else {
+                    // ---------------------------------------------
+                    // The scanner detected no other integers
+                    // - closes the scanner for the file
+                    // - breaks out of the for loop
+                    //
+                    System.out.print("\n\nDataFileFILE has been completely READ\n\n");
+                    scanUserFile.close();
 
-static String equalsIgnoreCase(String another)----------compares another string. It doesn't check case.
-String toLowerCase()------------------------------returns string in lowercase
-String toLowerCase(Locale l)------------------------returns string in lowercase using specified locale.
-String toUpperCase()-----------------------------returns string in uppercase.
-String toUpperCase(Locale l)------------------------returns string in uppercase using specified locale.
-String trim()--------------------------------------removes beginning and ending spaces of this string.
-static String valueOf(int value)--------------------------converts given type into string. It is overloaded.
+                    // A break statement allows us to exit the loop before we have reach the end
+                    break;
+                }
+            }
 
+            // ---------------------------------------------
+            // Calculate the Average
+            //
 
+            average = total / itemCount;
 
-char charAt(int index)                                      returns char value for the particular index
-int length()							            	            returns string length
-static String format(String format, Object... args)		             returns formatted string
-static String format(Locale l, String format, Object... args)	    returns formatted string with given locale
-String substring(int beginIndex)					                returns substring for given begin index
-String substring(int beginIndex, int endIndex)			            returns substring for given begin index and end index
-boolean contains(CharSequence s)				                        returns true or false after matching the sequence of char value
-static String join(CharSequence delimiter, CharSequence... elements)			returns a joined string
-static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)	returns a joined string
-boolean equals(Object another)				                        	checks the equality of string with object
-boolean isEmpty()							checks if string is empty
-String concat(String str)						concatenates specified string
-String replace(char old, char new)				replaces all occurrences of specified char value
-String replace(CharSequence old, CharSequence new)		replaces all occurrences of specified CharSequence
+            // ---------------------------------------------
+            // By using the printf statements you can make your output look "neat"
+            //
 
-String[] split(String regex)					returns splitted string matching regex
-String[] split(String regex, int limit)				returns splitted string matching regex and limit
-String intern()							returns interned string
-int indexOf(int ch)							returns specified char value index
-int indexOf(int ch, int fromIndex)				returns specified char value index starting with given index
-int indexOf(String substring)					returns specified substring index
-int indexOf(String substring, int fromIndex)			returns specified substring index starting with given index
+            System.out.println("==================================================================\n");
+            System.out.println("                       The Average\n");
+            System.out.printf("\tNumber of Items........ %20.0f\n", (double)itemCount);
+            System.out.printf("\tSum of all Items:...... %20.0f\n", total);
+            System.out.printf("\tAverage:............... %20.4f\n\n", average);
+            System.out.println("==================================================================\n");
 
+            // ---------------------------------------------
+            // Creating an output file and writing information into it
+            //
+            // Now that we have read the input file and calculated the average we will store the
+            // results in a file using the user input file name and attach a suffix "_out"
+            //
 
+            userOutputFileName = userInputFileName.replace(".txt","_out.txt");
+            File outputFile = new File(userOutputFileName);
 
+            if (outputFile.createNewFile()){
+                System.out.println(userOutputFileName + " was created"); // if file was created
+            }
+            else {
+                System.out.println(userOutputFileName + " existed and is being overwritten."); // if file had already existed
+            }
 
+            // --------------------------------
+            // If the file creation of access permissions to write into it
+            // are incorrect the program throws an exception
+            //
+
+            if ((outputFile.isFile()|| outputFile.canWrite())){
+                BufferedWriter fileOut = new BufferedWriter(new FileWriter(outputFile));
+
+                fileOut.write("==================================================================");
+
+                fileOut.write(NEWLINE + NEWLINE +"                       The Average" + NEWLINE + NEWLINE);
+
+                outString = NEWLINE + "\t\tNumber of Items........ " + itemCount + NEWLINE;
+                fileOut.write(outString);
+
+                outString = "\t\tSum of all Items:...... " + total + NEWLINE;
+                fileOut.write(outString);
+
+                outString = "\t\tAverage:............... " + average + NEWLINE + NEWLINE;
+                fileOut.write(outString);
+
+                fileOut.write("==================================================================");
+
+                fileOut.close();
+
+            }
+            else {
+                throw new IOException();
+            }
+
+        } // end of try
+
+        // ---------------------------------------------
+        // Catch Statements from the try above
+
+        // ---------------------------------------------
+        // If the file cannot be found then an exception (error) is generated (thrown) that we have to
+        // deal with (catch).
+        //
+        catch (FileNotFoundException e) {
+            System.err.format("File Not Found Exception: %s%n", e);
+            e.printStackTrace();
+        }
+
+        // ---------------------------------------------
+        // If for some reason the output file could not be created we throw an IO Exception
+        //
+        catch (IOException e) { // in case for some reason the output file could not be created
+            System.err.format("IOException: %s%n", e);
+            e.printStackTrace();
+        }
+
+    }
+}
