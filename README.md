@@ -1,98 +1,60 @@
 package com.company;
 
-// *---------*---------*---------*---------*---------*---------*---------*---------*
-// The import statements indicate which of the Java libraries your program will be
-// using to complete its task.
-//
-
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 import java.io.*;
-
+import java.util.*;
 public class Main {
-
-    // create a constant value for use in for loop below
-    private static int myMAX = 100;
-
-    // "line.separator" is a system property that is a platform independent and it is one way
-    // of getting a newline from your environment.
-    private static String NEWLINE = System.getProperty("line.separator");
 
     public static void main(String[] args) {
 
-        // --------------------------------
-        // create a variable userFileName of type scanner to process input from "System.in"
-        //
+        int[] iNoFile = {2, 3, 5, 7, 11, 13, 17, 19, 2, 3, 23, 29, 11, 13, 31, 37, 23, 29, 41, 43};
 
-        String userInputFileName;
-        String userOutputFileName;
-        String outString;
+        String [] sNoFile = {"Adverse", "means",  "harmful",  "or", "unfavorable", "Adverse",  "market", "conditions", "caused", "the", "IPO", "to",
+        "be", "poorly", "subscribed", "Averse", "refers", "to", "feelings",  "of", "dislike",  "or", "opposition",  "I", "was", "averse", "to", "paying", "18", "dollars", "a", "share",
+                "for",  "a", "company", "that", "generates", "no", "revenue"};
 
-        int dataArray[] = new int[myMAX];
-        int itemCount = 0;
-        double average = 0;
-        double total = 0;
+        // =============================================================================================================
+        // Task 1: Create an array of integers called myInt that can hold a maximum of 25 items
+        //         If you are unable to write the code to read the file then use the "iNoFile" array
+        //         given above. (2 marks)
 
-        System.out.println("");
-        System.out.println("Please type in the INPUT file name\n");
+        int  IMAXDATA =25;
+        String userFileName;
+
+        int myInt[]= new int[IMAXDATA];
+
+        // Task 2: Open and read the data from i.txt into the myInt array (4 marks)
 
 
-        // --------------------------------
-        // Here we are using another class defined in Java, the Scanner class, to
-        // allow us to read the input entered by the person running/using our program.
-        // Note: We use the keyword "new" infront of the class name "Scanner" to create
-        // an "object" from a class. Additionally, we tell our program to specifically
-        // create an object that will read information from "System.in". In this case
-        // we have called our Scanner object "s"
-        //
+        Scanner scanSystemIn = new Scanner(System.in);
 
-        Scanner scanSystemIn = new Scanner(System.in, "UTF-8");
+        // Use the Scanner "s" to get the "next" input from "System.in"
+        System.out.println("Enter 'i.txt'");
+        userFileName = scanSystemIn.next();
 
-        // --------------------------------
-        // Use the Scanner "userFileName" to get the "next" input from "System.in"
-        //
-
-        userInputFileName = scanSystemIn.next();
-
-        // --------------------------------
         // Display the user input now stored in "userInput"
-        //
+        System.out.println("\nThe user input: " + userFileName);
 
-        System.out.println("\nThe user input: " + userInputFileName);
 
         // ---------------------------------------------
-        // This is where we "try" to process the file
+        // "try" to process the file
         //
-
         try {
 
-            // --------------------------------
-            // create file, and scanner objects
-            // - file object is called tempfilenums.txt and is in your project directory
-            //   that is the same folder as the iml file
-            //
-
-            File userFile = new File(userInputFileName);
-            Scanner scanUserFile = new Scanner(userFile, "UTF-8");
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
 
             // ---------------------------------------------
             // Reads in values from the file in a for loop
             //
+            // Task 3: Print the contents of the array on 1 line separated by spaces using a for loop. (3 marks)
 
-            for(int i=0; i < myMAX; i++) {
+            for(int i=0; i < IMAXDATA; i++) {
 
-                // ---------------------------------------------
-                // The scanner checks if there is another integer and prints it
-                // if there is
-                //
-
-                if (scanUserFile.hasNext()) {
-
-                    dataArray[itemCount] = scanUserFile.nextInt();
-                    total = total + dataArray[itemCount];
-
-                    System.out.print(" - " + dataArray[itemCount]);
-
-                    itemCount++;
+                if (scanUserFile.hasNextInt()) {
+                  myInt[i] = scanUserFile.nextInt();
+                    System.out.print(" "+ myInt[i]);
                 }
                 else {
                     // ---------------------------------------------
@@ -100,7 +62,7 @@ public class Main {
                     // - closes the scanner for the file
                     // - breaks out of the for loop
                     //
-                    System.out.print("\n\nDataFileFILE has been completely READ\n\n");
+                    System.out.print("\n\nDataFileFILE has been completely READ");
                     scanUserFile.close();
 
                     // A break statement allows us to exit the loop before we have reach the end
@@ -108,91 +70,174 @@ public class Main {
                 }
             }
 
-            // ---------------------------------------------
-            // Calculate the Average
-            //
-
-            average = total / itemCount;
+            System.out.println();
 
             // ---------------------------------------------
-            // By using the printf statements you can make your output look "neat"
+            // If the file cannot be found then an exception (error) is generated (thrown) that we have to
+            // deal with (catch).
+            // - we print "e" the exception, and
+            // - show the user where it was using the "exceptions" stack trace information
             //
 
-            System.out.println("==================================================================\n");
-            System.out.println("                       The Average\n");
-            System.out.printf("\tNumber of Items........ %20.0f\n", (double)itemCount);
-            System.out.printf("\tSum of all Items:...... %20.0f\n", total);
-            System.out.printf("\tAverage:............... %20.4f\n\n", average);
-            System.out.println("==================================================================\n");
-
-            // ---------------------------------------------
-            // Creating an output file and writing information into it
-            //
-            // Now that we have read the input file and calculated the average we will store the
-            // results in a file using the user input file name and attach a suffix "_out"
-            //
-
-            userOutputFileName = userInputFileName.replace(".txt","_out.txt");
-            File outputFile = new File(userOutputFileName);
-
-            if (outputFile.createNewFile()){
-                System.out.println(userOutputFileName + " was created"); // if file was created
-            }
-            else {
-                System.out.println(userOutputFileName + " existed and is being overwritten."); // if file had already existed
-            }
-
-            // --------------------------------
-            // If the file creation of access permissions to write into it
-            // are incorrect the program throws an exception
-            //
-
-            if ((outputFile.isFile()|| outputFile.canWrite())){
-                BufferedWriter fileOut = new BufferedWriter(new FileWriter(outputFile));
-
-                fileOut.write("==================================================================");
-
-                fileOut.write(NEWLINE + NEWLINE +"                       The Average" + NEWLINE + NEWLINE);
-
-                outString = NEWLINE + "\t\tNumber of Items........ " + itemCount + NEWLINE;
-                fileOut.write(outString);
-
-                outString = "\t\tSum of all Items:...... " + total + NEWLINE;
-                fileOut.write(outString);
-
-                outString = "\t\tAverage:............... " + average + NEWLINE + NEWLINE;
-                fileOut.write(outString);
-
-                fileOut.write("==================================================================");
-
-                fileOut.close();
-
-            }
-            else {
-                throw new IOException();
-            }
-
-        } // end of try
-
-        // ---------------------------------------------
-        // Catch Statements from the try above
-
-        // ---------------------------------------------
-        // If the file cannot be found then an exception (error) is generated (thrown) that we have to
-        // deal with (catch).
-        //
-        catch (FileNotFoundException e) {
-            System.err.format("File Not Found Exception: %s%n", e);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
 
+        System.out.println("------------------------------------------------");
+
+
+
+
+        // Task 4: Sort the contents of the array. (2 marks)
+
+        Arrays.sort(myInt);
+
+        // Task 5: Leave 2 blank lines and then Print the contents of the sorted array on 1 line using a for loop. (3 marks)
+        System.out.printf("\n\n");
+        System.out.println("Sorted Array:");
+        for (int i = 5; i < IMAXDATA; i++) {
+            System.out.print(" " + myInt[i]);
+        }
+
+
+        // Task 6: Use a for loop to add together the first 5 values in the myInt array and display the result. (3 marks)
+
+        int sum= 0;
+
+        for (int i=5; i< 10; i++){
+
+            sum += myInt[i];
+
+        }
+
+        System.out.print("\n\nSum of fisrt 5 values: " + sum);
+
+
+        // Task 7: Find every value that is duplicated, and print this to the screen. (4 marks)
+
+        System.out.print("\n\nDuplicated values: ");
+        for (int i=5; i< 24; i++){
+            int j= i + 1;
+
+            if (myInt[i]== myInt[j]){
+                System.out.print(" " + myInt[j]);
+            }
+        }
+
+
+
+        // =============================================================================================================
+        // Task 8: Create an array of Strings called myStrings that can hold a maximum of 50 items
+        //         If you are unable to write the code to read the file then use the "sNoFile" array
+        //         given above. (2 marks)
+
+        int SMAXDATA = 50;
+        String myStrings[]= new String[SMAXDATA];
+
+
+        // Task 10: Open and read the data from s.txt into the myStrings array (4 marks)
+
+        // Use the Scanner "s" to get the "next" input from "System.in"
+        System.out.println("\n\nEnter 's.txt'");
+        userFileName = scanSystemIn.next();
+
+        // Display the user input now stored in "userInput"
+        System.out.println("\nThe user input: " + userFileName);
+
+
         // ---------------------------------------------
-        // If for some reason the output file could not be created we throw an IO Exception
+        // "try" to process the file
         //
-        catch (IOException e) { // in case for some reason the output file could not be created
-            System.err.format("IOException: %s%n", e);
+        try {
+
+            File userFile = new File(userFileName);
+            Scanner scanUserFile = new Scanner(userFile);
+
+            // ---------------------------------------------
+            // Reads in values from the file in a for loop
+            //
+
+            for(int i=0; i < SMAXDATA; i++) {
+
+                // Task 11: Print the contents of the array using a while loop. (3 marks)
+
+                while (scanUserFile.hasNext()) {
+                    myStrings[i] = scanUserFile.next();
+                    System.out.print(" "+ myStrings[i]);
+                }
+                if (!scanUserFile.hasNext()){
+                    // ---------------------------------------------
+                    // The scanner detected no other integers
+                    // - closes the scanner for the file
+                    // - breaks out of the for loop
+                    //
+                    System.out.print("\n\nDataFileFILE has been completely READ");
+                    scanUserFile.close();
+
+                    // A break statement allows us to exit the loop before we have reach the end
+                    break;
+                }
+            }
+
+            System.out.println();
+
+            // ---------------------------------------------
+            // If the file cannot be found then an exception (error) is generated (thrown) that we have to
+            // deal with (catch).
+            // - we print "e" the exception, and
+            // - show the user where it was using the "exceptions" stack trace information
+            //
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
 
-    }
-}
+        System.out.println("------------------------------------------------");
+
+        System.out.println();
+
+
+
+        // Task 12: Sort the contents of the array. (2 marks)
+
+        Arrays.sort(sNoFile);
+
+        System.out.println("Sorted Array:");
+        for (int i = 0; i < sNoFile.length; i++) {
+            System.out.print(" " + sNoFile[i]);
+        }
+
+
+        // Task 13: Print the contents of the sorted array in reverse order using a while loop. (4 marks)
+
+        String reverse = " ";
+            for(int i = sNoFile.length - 1; i >= 0; ) {
+                int i1 = i--;
+                reverse += (sNoFile[i1] + " ");
+            }
+
+            System.out.println("\n\n" +
+                    "Reversed string is:");
+            System.out.println(" " + reverse);
+
+
+        // Task 14: Using a while loop print out all strings that are duplicated (ignore capitalization during the comparison) (2 marks)
+
+
+        System.out.print("\n\n Duplicated Strings: \n");
+        int m = 0;
+        while (m < SMAXDATA){
+            m++;
+            int j= m + 1;
+            if ((sNoFile[m].equalsIgnoreCase(sNoFile[j]))) {
+                System.out.print(" " + sNoFile[j]);
+            }
+
+        }// end while loop
+
+
+
+    }// end main method
+}// end main class
