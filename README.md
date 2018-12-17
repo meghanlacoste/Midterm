@@ -1,116 +1,54 @@
-# Midterm
-
-package com.company;
-
-// -------------------------------------------------------------------------------
-// Bring in the appropriate Java libraries
-//
-
-import java.util.*;
-import java.io.*;
-
 public class Main {
-
-    // Declare Constant Values
-    public static int maxArr = 20;
-    public static int INVALID = -1;
-
-    // The main method
-    public static void main(String[] args) {
-
-        int a[][] = new int[maxArr][maxArr];
-        boolean fileDone = false;
-
-        // -------------------------------------------------------------------------------
-        // Initialize the array to a known value
-        // - loops over each row using "i",
-        // - loops over the columns using "j"
-        // -  sets all array values to INVALID
-        //
-
-        for(int i=0; i < maxArr; i++) {
-            for(int j = 0; j < maxArr; j++){
-                a[i][j] = INVALID;
-            }
-        }
-
-        System.out.println("------------------------------------------------");
-
-        try {
-            // --------------------------------
-            // create file, and scanner objects
-            // - file object is called tempfilenums.txt and is in your project directory
-            //   that is the same folder as the iml file
-            //
-            File f = new File("tempfilenums.txt");
-            Scanner s = new Scanner(f);
-
-            // ---------------------------------------------
-            // Reads in values from the file into the array
-            // - can only hold maxArr * maxArr elements
-            // - reads file data into array integer by integer filling array sequentially
-            //
-
-            for(int i=0; i < maxArr; i++) {
-
-                for(int j = 0; j < maxArr; j++){
-
-                    // ---------------------------------------------
-                    // The scanner checks if there is another integer and prints it
-                    // if there is
-                    //
-
-                    if (s.hasNext()) {
-                        a[i][j] = s.nextInt();
-                        System.out.print(" - " + a[i][j]);
-                    }
-                    else {
-                        // ---------------------------------------------
-                        // The scanner detected no other integers
-                        // - sets boolean "fileDone" to true
-                        // - closes the scanner
-                        // - breaks out of the for loop
-                        //
-
-                        fileDone = true;
-                        s.close();
-                        break;
-                    }
-                }
-
-                // ---------------------------------------------
-                // The file has been completely read into the array, so the user is notified.
-                //
-
-                System.out.println();
-                if (fileDone) {
-                    System.out.println("\n\tFile data has been read into array");
-                    break;
-                }
-            }
-
-            // ---------------------------------------------
-            // If there is not enough space in the array so make sure the user is notified that the file contains
-            // more data than the array can hold.
-            //
-
-            if (!fileDone) {
-                System.out.println("\n\tCAUTION: file has additional data, consider making array larger.");
-            }
-
-            // ---------------------------------------------
-            // If the file cannot be found then an exception (error) is generated (thrown) that we have to
-            // deal with (catch).
-            // - we print "e" the exception, and
-            // - show the user where it was using the "exceptions" stack trace information
-            //
-
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-
-        System.out.println("------------------------------------------------");
+     private static int MAXLOOP1 = 20;
+    private static int MAXLOOP2 = 5;
+    private static int MAXLOOP3 = 10;
+    private static int MAXLOOP4 = 7;
+    private static int MAXLOOP5 = 97;
+     private static int MAXPERLINE1 = 20;
+    private static int MAXPERLINE2 = 50;
+    private static int MODULUS = 3;
+     public static void main(String[] args) {
+         System.out.println("*---------*---------*---------*---------*---------*---------*");
+         int product = 0;
+        int itemsOnLine =  0;
+         for (int i = 1; i <= MAXLOOP1; i++){
+             for (int j = 1; j <= MAXLOOP2; j++){
+                 itemsOnLine++;
+                product = i * j;
+                 System.out.print( product + " ");
+                 if (itemsOnLine == MAXPERLINE1){
+                    System.out.println();
+                    itemsOnLine = 0;
+                } // end if (itemsOnLine == MAXPERLINE)
+             } // end for (int j = 1; j <= MAXLOOP2; j++)
+        } // end for (int i = 1; i <= MAXLOOP1; i++)
+         System.out.println("*---------*---------*---------*---------*---------*---------*");
+         product = 0;
+        itemsOnLine =  0;
+         int idx1 = 1;
+        int idx2 = 1;
+         for (int i = 1; i <= MAXLOOP3; i++){
+             idx1 = 1;
+             while (idx1 < MAXLOOP4 ){
+                 idx2 = 1;
+                 do {
+                     product = i * idx1 * idx2;
+                     if (product % MODULUS == 0){
+                         itemsOnLine++;
+                         System.out.print( product + " ");
+                         if (itemsOnLine == MAXPERLINE2){
+                             System.out.println();
+                            itemsOnLine = 0;
+                         } // end if (itemsOnLine == MAXPERLINE)
+                    } // end if (product % MODULUS == 0)
+                     idx2++;
+                } while (idx2 <= MAXLOOP5);
+                 idx1++;
+             } // end while (idx1 < MAXLOOP4 )
+        } // end (int i = 1; i <= MAXLOOP3; i++)
+         System.out.println("*---------*---------*---------*---------*---------*---------*");
+     } // end main method
+} // end main class
 
     }
 }
