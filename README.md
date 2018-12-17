@@ -1,5 +1,8 @@
 public class Main {
-   private static int MAXLOOP1 = 20;
+  
+  //MAXPERLINE AND LOOPS
+  
+  private static int MAXLOOP1 = 20;
    private static int MAXLOOP2 = 5;
    private static int MAXLOOP3 = 10;
     private static int MAXLOOP4 = 7;
