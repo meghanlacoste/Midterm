@@ -38,3 +38,32 @@ package com.company;
  interface Pet{
     public void test();
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public interface SomeInterface{
+   // constant declarations, if any
+   // method signatures   
+   int someMethod(String someString,
+                              double someDouble,
+                              int someInt);
+                    double speedOfCar);
+         ......
+}
+Note: that the method signatures have no braces and are terminated with a semicolon.
+
+---------------------------
+
+o use an interface, you write a class that implements the interface. When an instantiable class implements an interface, it provides a method body for each of the methods declared in the interface. For example,
+public class myVersionOfSomeInterface implements SomeInterface {
+
+    Int someMethod (String someString, 
+                             double someDouble, 
+                             int someInt) {
+       // code for someMethod    }
+………..
+}
+
+
+
