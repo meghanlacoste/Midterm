@@ -2,84 +2,110 @@
 
 public class Main {
 
-    private static int MAXLOOP1 = 20;
-    private static int MAXLOOP2 = 5;
-    private static int MAXLOOP3 = 10;
-    private static int MAXLOOP4 = 7;
-    private static int MAXLOOP5 = 97;
+   package com.company;
 
-    private static int MAXPERLINE1 = 20;
-    private static int MAXPERLINE2 = 50;
-    private static int MODULUS = 3;
+import java.util.Random;
+
+public class Main {
+
+    private static int MAXDATA = 30;
+    private static int LOWVALUE = 0;
+    private static int HIGHVALUE = 100;
+    private static int PRIMEVALUE = 7;
 
     public static void main(String[] args) {
 
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
+        int[] dataStorage = new int[MAXDATA];
+        Random nextValue = new Random();
 
-        int product = 0;
-        int itemsOnLine =  0;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Generate Random Values
 
-        for (int i = 1; i <= MAXLOOP1; i++){
-
-            for (int j = 1; j <= MAXLOOP2; j++){
-
-                itemsOnLine++;
-                product = i * j;
-
-                System.out.print( product + " ");
-
-                if (itemsOnLine == MAXPERLINE1){
-                    System.out.println();
-                    itemsOnLine = 0;
-                } // end if (itemsOnLine == MAXPERLINE)
-
-            } // end for (int j = 1; j <= MAXLOOP2; j++)
-        } // end for (int i = 1; i <= MAXLOOP1; i++)
+        System.out.println("\nGenerate Random Numbers between " + LOWVALUE + " - " + HIGHVALUE);
+        for (int i = 0; i < MAXDATA; i++){
+            dataStorage[i] = nextValue.nextInt(HIGHVALUE - LOWVALUE) + LOWVALUE;
+        }
 
 
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying array data in order
 
-        product = 0;
-        itemsOnLine =  0;
+        System.out.println("\nDisplay Random Numbers in Order");
+        for (int i = 0; i < MAXDATA; i++){
+            System.out.println("Index: " + i + " Value: " + dataStorage[i]);
+        }
 
-        int idx1 = 1;
-        int idx2 = 1;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying array data in reverse order
 
-        for (int i = 1; i <= MAXLOOP3; i++){
+        System.out.println("\nDisplay Random Numbers in Reverse Order");
+        for (int i = MAXDATA - 1; i >= 0 ; i--){
+            System.out.println("Index: " + i + " Value: " + dataStorage[i]);
+        }
 
-            idx1 = 1;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying Every 2nd piece of data in the array
 
-            while (idx1 < MAXLOOP4 ){
+        System.out.println("\nDisplay Every 2nd Random Number");
+        for (int i = 0; i < MAXDATA; i+=2){
+            System.out.println("Index: " + i + " Value: " + dataStorage[i]);
+        }
 
-                idx2 = 1;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying Every piece of data in the array using an index calculation that uses
+        // the first prime number larger than the root of MAXDATA to generate the indices
+        // this is an interesting and important concept that can be used to generate a set of
+        // values
 
-                do {
+        System.out.println("\nSolution #1 (use addition) for (6) Display Every 7th Value until all 30 displayed");
 
-                    product = i * idx1 * idx2;
+        int primeIndex = 0;
 
-                    if (product % MODULUS == 0){
+        for (int i = 0; i < MAXDATA; i++){
 
-                        itemsOnLine++;
+            System.out.println("Item: " + i + " Index: " + primeIndex + " Value: " + dataStorage[primeIndex]);
 
-                        System.out.print( product + " ");
+            // Use the prime value and maximum number of data items to determine the next index
+            primeIndex = (primeIndex + PRIMEVALUE) % MAXDATA;
 
-                        if (itemsOnLine == MAXPERLINE2){
+        }
 
-                            System.out.println();
-                            itemsOnLine = 0;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying Every piece of data in the array using an index calculation that uses
+        // the first prime number larger than the root of MAXDATA to generate the indices
+        // this is an interesting and important concept that can be used to generate a set of
+        // values
 
-                        } // end if (itemsOnLine == MAXPERLINE)
-                    } // end if (product % MODULUS == 0)
+        System.out.println("\nSolution #2 (use multiplication) for (6) Display Every 7th Value until all 30 displayed");
 
-                    idx2++;
-                } while (idx2 <= MAXLOOP5);
+        primeIndex = 0;
 
-                idx1++;
+        for (int i = 0; i < MAXDATA; i++){
 
-            } // end while (idx1 < MAXLOOP4 )
-        } // end (int i = 1; i <= MAXLOOP3; i++)
+            // Use the prime value and maximum number of data items to determine the next index
+            primeIndex = (PRIMEVALUE * i) % MAXDATA;
 
-        System.out.println("*---------*---------*---------*---------*---------*---------*");
+            System.out.println("Item: " + i + " Index: " + primeIndex + " Value: " + dataStorage[primeIndex]);
 
-    } // end main method
-} // end main class
+        }
+
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Displaying Every piece of data in the array using an index calculation that uses
+        // the first prime number larger than the root of MAXDATA to generate the indices
+        // this is an interesting and important concept that can be used to generate a set of
+        // values
+
+        System.out.println("\nSolution #3 for (6) Display Every 7th Value until all 30 displayed");
+        System.out.println("\n\t Instead of having the calculation on a seperate line it is done with println");
+
+        primeIndex = 0;
+
+        for (int i = 0; i < MAXDATA; i++){
+
+            System.out.println("Item: " + i + " Index: " + ((PRIMEVALUE * i) % MAXDATA) + " Value: " + dataStorage[((PRIMEVALUE * i) % MAXDATA)]);
+
+        }
+
+    }
+}
